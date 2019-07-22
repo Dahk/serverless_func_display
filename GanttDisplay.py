@@ -201,17 +201,24 @@ class GanttDisplay():
             <div class="gantt-row" style="grid-row: {METRICS_ROW}; background-color: #eee">
                 <div></div>
                 <div></div>
-                <div id="metrics" style="grid-column: 3; position: relative; grid-template-columns: repeat(100, 1fr);">
-                    <span style="position: absolute; left: 8%;">1s</span>
-                    <span style="position: absolute; left: 18%;">2s</span>
-                    <span style="position: absolute; left: 28%;">3s</span>
-                    <span style="position: absolute; left: 38%;">4s</span>
-                    <span style="position: absolute; left: 48%;">5s</span>
-                    <span style="position: absolute; left: 58%;">6s</span>     
-                    <span style="position: absolute; left: 68%;">7s</span>
-                    <span style="position: absolute; left: 78%;">8s</span>
-                    <span style="position: absolute; left: 88%;">9s</span>
-                    <span class="tooltip-metrics" style="position: absolute; left: 98%;">10s</span>
+                <div id="metrics" style="grid-column: 3; position: relative; margin-left: 8px; grid-template-columns: repeat(100, 1fr);">
+                    <span style="position: absolute; left: 8%;">1</span>
+                    <span style="position: absolute; left: 18%;">2</span>
+                    <span style="position: absolute; left: 28%;">3</span>
+                    <span style="position: absolute; left: 38%;">4</span>
+                    <span style="position: absolute; left: 48%;">5</span>
+                    <span style="position: absolute; left: 58%;">6</span>     
+                    <span style="position: absolute; left: 68%;">7</span>
+                    <span style="position: absolute; left: 78%;">8</span>
+                    <span style="position: absolute; left: 88%;">9</span>
+                    <span class="tooltip-metrics" style="position: absolute; left: 98%;">10</span>
+                </div>
+            </div>
+            <div class="gantt-row" style="grid-row: {UNITS_DESC_ROW}; background-color: #eee">
+                <div></div>
+                <div></div>
+                <div style="grid-column: 3; position: relative;">
+                    <span style="position: absolute; left: 40%;">wallclock time (sec)</span>
                 </div>
             </div>
         </div>
@@ -253,7 +260,7 @@ class GanttDisplay():
         var elems = document.getElementById("metrics").children
         var new_max = {NEW_MAX}
         for (var i=0; i<elems.length; i++){
-            elems[i].innerHTML = (new_max / 10 * (i+1)).toFixed(2) + "s"
+            elems[i].innerHTML = (new_max / 10 * (i+1)).toFixed(2)
         }
         var desc = document.createElement("SPAN")
         desc.className = "tooltiptext-metrics"
@@ -290,7 +297,8 @@ class GanttDisplay():
             i += 1
         
         html = self.html_template.replace('{ROWS}', rows).replace('{PINS_ROW}', str(i+1))\
-               .replace('{METRICS_ROW}', str(i+2)).replace('{NUM_WORKERS}', str(i-1)).replace('{NUM_WORKERS_PLUS1}', str(i))
+               .replace('{METRICS_ROW}', str(i+2)).replace('{UNITS_DESC_ROW}', str(i+3))\
+               .replace('{NUM_WORKERS_PLUS1}', str(i)).replace('{NUM_WORKERS}', str(i-1))
         css = self.css.replace('{NUM_WORKERS}', str(i-1)).replace('{HSEP_ROW}', str(i))
         display(HTML(html+css))
 
